@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>يوسف الأسمري — تقنية معلومات · ذكاء اصطناعي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=Sora:wght@400;600;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050506; --bg2:#0c0d10; --panel:#101216; --panel2:#15181d;
+  --line:#23262b; --text:#e9ebee; --muted:#9aa1a8; --dim:#6b7178;
+  --silver:#c8ced4; --glow:#bcd3ff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);
+  line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative}
+h1,h2,h3,.disp{font-family:'El Messiri',serif}
+body.en h1,body.en h2,body.en h3,body.en .disp{font-family:'Sora',sans-serif;letter-spacing:-.5px}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 26px}
+.silver{color:var(--silver)}
+
+/* ---- global flowing silver lines (whole page) ---- */
+.flow{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.flow svg{position:absolute;width:140%;height:140%;top:-20%;right:-20%;opacity:.5}
+.flow .p{stroke:url(#lg);stroke-width:1;fill:none;
+  filter:drop-shadow(0 0 6px #cfe0ff22)}
+.blob{position:fixed;border-radius:50%;filter:blur(80px);z-index:0;pointer-events:none;
+  background:radial-gradient(circle,#233042aa,transparent 70%);opacity:.5}
+.blob.a{width:520px;height:520px;top:-120px;right:-80px;animation:drift 22s ease-in-out infinite}
+.blob.b{width:460px;height:460px;bottom:-140px;left:-100px;
+  background:radial-gradient(circle,#1c2733aa,transparent 70%);animation:drift 26s ease-in-out infinite reverse}
+@keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,50px)}}
+main,nav,footer{position:relative;z-index:2}
+
+/* ---------- NAV ---------- */
+nav{position:fixed;top:0;right:0;left:0;z-index:60;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 30px;backdrop-filter:blur(10px);
+  background:linear-gradient(#050506cc,transparent);transition:.3s}
+nav.scrolled{background:#070809ee;border-bottom:1px solid var(--line);padding:12px 30px}
+nav .logo{font-family:'El Messiri';font-weight:700;font-size:20px;letter-spacing:.5px}
+body.en nav .logo{font-family:'Sora'}
+nav .right{display:flex;align-items:center;gap:22px}
+nav .links{display:flex;gap:24px;font-size:15px;color:var(--muted)}
+nav .links a{transition:.2s}nav .links a:hover{color:var(--text)}
+.langbtn{border:1px solid var(--line);background:#ffffff08;color:var(--text);
+  border-radius:30px;padding:6px 16px;font-family:inherit;font-size:13px;cursor:pointer;transition:.25s}
+.langbtn:hover{border-color:var(--silver);background:#ffffff12}
+@media(max-width:640px){nav .links{display:none}}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;
+  justify-content:center;text-align:center;overflow:hidden;
+  background:
+    radial-gradient(1100px 620px at 72% 18%, #1b1f26 0%, transparent 55%),
+    radial-gradient(900px 500px at 15% 88%, #14171c 0%, transparent 55%),
+    linear-gradient(135deg,#050506,#0c0e12 60%,#171b21);}
+.hero::before{content:"";position:absolute;inset:-20%;
+  background:conic-gradient(from 210deg at 60% 42%,
+    transparent 0deg,#20252c55 40deg,transparent 90deg,
+    #0c0e1200 200deg,#2a313a44 300deg,transparent 360deg);
+  filter:blur(6px);opacity:.7;transition:transform .3s ease-out}
+/* crossing X light beams */
+.beam{position:absolute;top:50%;left:50%;width:2px;height:150%;
+  transform-origin:center;background:linear-gradient(#0000,var(--glow),#eaf1ff,var(--glow),#0000);
+  box-shadow:0 0 26px 4px #cfe0ff77;opacity:.55;transition:transform .3s ease-out}
+.beam.b1{transform:translate(-50%,-50%) rotate(26deg)}
+.beam.b2{transform:translate(-50%,-50%) rotate(-26deg);opacity:.4}
+.beam.b3{transform:translate(-50%,-50%) rotate(26deg) translateX(120px);opacity:.18;width:1px}
+.beam.b4{transform:translate(-50%,-50%) rotate(-26deg) translateX(-120px);opacity:.15;width:1px}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:.6}}
+.beam.b1,.beam.b2{animation:pulse 7s ease-in-out infinite}
+.hero .inner{position:relative;z-index:3;padding:0 22px}
+.eyebrow{color:var(--dim);letter-spacing:6px;font-size:12px;margin-bottom:18px}
+.hero h1{font-size:clamp(42px,8vw,86px);font-weight:700;line-height:1.1;
+  letter-spacing:1px;text-shadow:0 4px 30px #000}
+.hero .en-line{color:var(--muted);letter-spacing:10px;font-size:clamp(13px,2vw,18px);
+  margin-top:10px;font-family:'Sora';font-weight:400}
+.hero .role{margin-top:26px;font-size:clamp(16px,2.4vw,22px);color:var(--silver);font-weight:500}
+.avail{position:relative;display:inline-flex;align-items:center;margin-top:22px;
+  border:1px solid #3f5a50;border-radius:30px;padding:8px 22px;font-size:14px;
+  color:#cfe9df;background:#0e1613aa;overflow:hidden;box-shadow:0 0 18px #7fd8b41f}
+.avail span{position:relative;z-index:1}
+.avail::before{content:"";position:absolute;top:0;bottom:0;width:45%;
+  background:linear-gradient(105deg,transparent,#bfeee066,transparent);
+  transform:skewX(-16deg);inset-inline-start:-60%;animation:sweep 3.4s ease-in-out infinite}
+@keyframes sweep{0%{inset-inline-start:-60%}55%,100%{inset-inline-start:130%}}
+.cta{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{padding:12px 26px;border-radius:40px;font-weight:500;font-size:15px;
+  border:1px solid var(--line);transition:.25s;background:#ffffff05;cursor:pointer;font-family:inherit}
+.btn:hover{border-color:var(--silver);background:#ffffff0d;transform:translateY(-2px)}
+.btn.solid{background:linear-gradient(120deg,#e9edf2,#b9c0c8);color:#0a0b0d;border:none;font-weight:700}
+.btn.solid:hover{box-shadow:0 8px 30px #cfd6de33}
+.scrolldown{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+  color:var(--dim);font-size:22px;animation:bob 2s infinite;z-index:3}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+
+/* ---------- SECTIONS ---------- */
+section{padding:96px 0;position:relative}
+.tag{color:var(--dim);letter-spacing:5px;font-size:12px;margin-bottom:12px}
+.head{font-size:clamp(28px,4.5vw,42px);font-weight:700;margin-bottom:28px}
+.head .bar{display:inline-block;width:42px;height:3px;border-radius:3px;
+  background:linear-gradient(90deg,var(--silver),transparent);vertical-align:middle;margin-inline-start:14px}
+.reveal{opacity:0;transform:translateY(28px);transition:.7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+.about p{font-size:18px;color:#cdd2d7;max-width:760px}
+.about .lead{color:var(--text);font-size:20px;font-weight:500;margin-bottom:14px}
+
+.skills{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.skill{background:linear-gradient(160deg,var(--panel),var(--bg2));
+  border:1px solid var(--line);border-radius:16px;padding:22px 20px;transition:.3s}
+.skill:hover{border-color:#3a4048;transform:translateY(-4px);box-shadow:0 14px 40px #00000066}
+.skill .ic{font-size:22px;margin-bottom:10px;color:var(--silver)}
+.skill h3{font-family:'Tajawal';font-weight:700;font-size:17px;margin-bottom:4px}
+body.en .skill h3{font-family:'Sora'}
+.skill p{color:var(--muted);font-size:14px;line-height:1.6}
+
+.projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.card{background:linear-gradient(160deg,var(--panel),#0a0c0f);
+  border:1px solid var(--line);border-radius:18px;padding:26px;transition:.3s;
+  position:relative;overflow:hidden;cursor:pointer}
+.card::after{content:"";position:absolute;top:-40%;right:-30%;width:60%;height:120%;
+  background:radial-gradient(circle,#7d879522,transparent 70%);opacity:0;transition:.4s}
+.card:hover{border-color:#3a4048;transform:translateY(-5px);box-shadow:0 18px 46px #00000077}
+.card:hover::after{opacity:1}
+.card .pill{display:inline-block;font-size:12px;color:var(--silver);
+  border:1px solid var(--line);border-radius:20px;padding:3px 12px;margin-bottom:14px}
+.card h3{font-size:20px;margin-bottom:10px}
+.card p{color:var(--muted);font-size:15px;margin-bottom:16px}
+.card .stack{color:var(--dim);font-size:13px;letter-spacing:1px}
+.card .more{color:var(--silver);font-size:13px;margin-top:14px;opacity:.85}
+.card.soon{border-style:dashed}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:24px}
+.modal.open{display:flex}
+.modal .bd{position:absolute;inset:0;background:#03040699;backdrop-filter:blur(6px)}
+.modal .box{position:relative;max-width:560px;width:100%;
+  background:linear-gradient(160deg,#12151a,#0a0c0f);border:1px solid #2c3138;
+  border-radius:20px;padding:34px;box-shadow:0 30px 80px #000a;
+  animation:pop .3s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+.modal .x{position:absolute;top:16px;inset-inline-start:18px;font-size:22px;color:var(--muted);cursor:pointer;line-height:1}
+.modal .x:hover{color:var(--text)}
+.modal .pill{display:inline-block;font-size:12px;color:var(--silver);border:1px solid var(--line);border-radius:20px;padding:3px 12px;margin-bottom:14px}
+.modal h3{font-size:26px;margin-bottom:14px}
+.modal p{color:#cdd2d7;font-size:16px;margin-bottom:18px}
+.modal .stack{color:var(--dim);font-size:13px;letter-spacing:1px;border-top:1px solid var(--line);padding-top:16px}
+
+.contact{text-align:center}
+.contact .grid{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.contact a.chip{display:flex;align-items:center;gap:10px;padding:14px 24px;
+  border:1px solid var(--line);border-radius:14px;background:#ffffff05;color:var(--text);font-size:15px;transition:.25s}
+.contact a.chip:hover{border-color:var(--silver);background:#ffffff0d;transform:translateY(-3px)}
+.contact a.chip b{font-weight:400;color:var(--muted)}
+footer{text-align:center;padding:40px 0;color:var(--dim);font-size:13px;border-top:1px solid var(--line)}
+::selection{background:#cfd6de;color:#0a0b0d}
+</style>
+</head>
+<body>
+
+<!-- flowing lines + blobs -->
+<div class="flow">
+  <svg viewBox="0 0 1200 900" preserveAspectRatio="none">
+    <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#cfe0ff00"/><stop offset=".5" stop-color="#c8ced4"/><stop offset="1" stop-color="#cfe0ff00"/>
+    </linearGradient></defs>
+    <path class="p" d="M-50 260 C 300 120, 620 460, 1260 180"/>
+    <path class="p" d="M-50 420 C 340 300, 680 640, 1260 380" opacity=".6"/>
+    <path class="p" d="M-50 620 C 300 520, 700 820, 1260 560" opacity=".4"/>
+  </svg>
+</div>
+<div class="blob a"></div><div class="blob b"></div>
+
+<nav id="nav">
+  <div class="logo" data-ar="يوسف الأسمري" data-en="Yousef Alasmri">يوسف الأسمري</div>
+  <div class="right">
+    <div class="links">
+      <a href="#about" data-ar="نبذة" data-en="About">نبذة</a>
+      <a href="#skills" data-ar="المهارات" data-en="Skills">المهارات</a>
+      <a href="#projects" data-ar="المشاريع" data-en="Projects">المشاريع</a>
+      <a href="#contact" data-ar="تواصل" data-en="Contact">تواصل</a>
+    </div>
+    <button class="langbtn" id="lang" onclick="toggleLang()">English</button>
+  </div>
+</nav>
+
+<main>
+<!-- HERO -->
+<header class="hero">
+  <div class="beam b1"></div><div class="beam b2"></div>
+  <div class="beam b3"></div><div class="beam b4"></div>
+  <div class="inner">
+    <div class="eyebrow">PORTFOLIO</div>
+    <h1 data-ar="يوسف الأسمري" data-en="Yousef Alasmri">يوسف الأسمري</h1>
+    <div class="en-line">YOUSEF&nbsp;&nbsp;ALASMRI</div>
+    <div class="role" data-ar="تقنية المعلومات · الذكاء الاصطناعي · تطوير الويب" data-en="Information Technology · Artificial Intelligence · Web Development">تقنية المعلومات · الذكاء الاصطناعي · تطوير الويب</div>
+    <div><span class="avail"><span data-ar="متاح للعمل" data-en="Open to work">متاح للعمل</span></span></div>
+    <div class="cta">
+      <a href="#contact" class="btn solid" data-ar="تواصل معي" data-en="Contact me">تواصل معي</a>
+      <a href="cv.pdf" target="_blank" class="btn" data-ar="تحميل السيرة" data-en="Download CV">تحميل السيرة</a>
+      <a href="https://www.linkedin.com/in/yousef-alasmri" target="_blank" class="btn">LinkedIn</a>
+    </div>
+  </div>
+  <div class="scrolldown">﹀</div>
+</header>
+
+<!-- ABOUT -->
+<section id="about" class="about">
+  <div class="wrap reveal">
+    <div class="tag">01 — ABOUT</div>
+    <h2 class="head" data-ar="نبذة عني" data-en="About me">نبذة عني</h2>
+    <p class="lead" data-ar="طالب تقنية معلومات في جامعة الملك فيصل، شغوف بالذكاء الاصطناعي وتطوير واجهات الويب." data-en="An Information Technology student at King Faisal University, passionate about AI and web development.">طالب تقنية معلومات في جامعة الملك فيصل، شغوف بالذكاء الاصطناعي وتطوير واجهات الويب.</p>
+    <p data-ar="أوظّف أدوات الذكاء الاصطناعي باحتراف في حل المشكلات، بناء الواجهات، وأتمتة المهام. أجيد الحاسب وبرامج Office واللغة الإنجليزية بامتياز، ومتّجه نحو تطوير الويب المتكامل (Full-Stack) والأتمتة. منضبط، سريع التعلّم، وجاهز لفرصة أطبّق فيها مهاراتي وأنمّيها." data-en="I professionally leverage AI tools to solve problems, build interfaces, and automate tasks. Proficient in computers, MS Office, and fluent in English, heading toward Full-Stack web development and automation. Disciplined, a fast learner, and ready for an opportunity to apply and grow my skills.">أوظّف أدوات الذكاء الاصطناعي باحتراف في حل المشكلات، بناء الواجهات، وأتمتة المهام. أجيد الحاسب وبرامج Office واللغة الإنجليزية بامتياز، ومتّجه نحو تطوير الويب المتكامل (Full-Stack) والأتمتة. منضبط، سريع التعلّم، وجاهز لفرصة أطبّق فيها مهاراتي وأنمّيها.</p>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="reveal"><div class="tag">02 — SKILLS</div>
+    <h2 class="head" data-ar="المهارات" data-en="Skills">المهارات</h2></div>
+    <div class="skills">
+      <div class="skill reveal"><div class="ic">✦</div><h3 data-ar="هندسة الأوامر" data-en="Prompt Engineering">هندسة الأوامر</h3><p data-ar="كتابة تعليمات دقيقة للذكاء الاصطناعي لأفضل النتائج." data-en="Crafting precise AI prompts for the best results.">كتابة تعليمات دقيقة للذكاء الاصطناعي لأفضل النتائج.</p></div>
+      <div class="skill reveal"><div class="ic">◧</div><h3 data-ar="واجهات الويب بالـAI" data-en="AI-Assisted Web UI">واجهات الويب بالـAI</h3><p data-ar="بناء واجهات أمامية (HTML / CSS / JavaScript) بمساعدة أدوات الذكاء الاصطناعي." data-en="Building front-end interfaces (HTML / CSS / JavaScript) with AI tools.">بناء واجهات أمامية (HTML / CSS / JavaScript) بمساعدة أدوات الذكاء الاصطناعي.</p></div>
+      <div class="skill reveal"><div class="ic">⟳</div><h3 data-ar="الأتمتة وحل المشكلات" data-en="Automation & Problem-Solving">الأتمتة وحل المشكلات</h3><p data-ar="استخدام أدوات الذكاء الاصطناعي لأتمتة المهام وحل المشكلات بكفاءة." data-en="Using AI tools to automate tasks and solve problems efficiently.">استخدام أدوات الذكاء الاصطناعي لأتمتة المهام وحل المشكلات بكفاءة.</p></div>
+      <div class="skill reveal"><div class="ic">›_</div><h3 data-ar="أساسيات Python" data-en="Python Basics">أساسيات Python</h3><p data-ar="كتابة أكواد بايثون وفهم منطق البرمجة." data-en="Writing Python code and understanding programming logic.">كتابة أكواد بايثون وفهم منطق البرمجة.</p></div>
+      <div class="skill reveal"><div class="ic">▤</div><h3 data-ar="Excel وتحليل البيانات" data-en="Excel & Data">Excel وتحليل البيانات</h3><p data-ar="معالجة وتحليل البيانات في Excel مدعومًا بالذكاء الاصطناعي." data-en="Processing and analyzing data in Excel, boosted by AI.">معالجة وتحليل البيانات في Excel مدعومًا بالذكاء الاصطناعي.</p></div>
+      <div class="skill reveal"><div class="ic">A</div><h3 data-ar="الإنجليزية" data-en="English">الإنجليزية</h3><p data-ar="قراءة وكتابة ومحادثة بمستوى ممتاز." data-en="Excellent reading, writing, and speaking.">قراءة وكتابة ومحادثة بمستوى ممتاز.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="reveal"><div class="tag">03 — WORK</div>
+    <h2 class="head" data-ar="المشاريع" data-en="Projects">المشاريع</h2></div>
+    <div class="projects">
+      <div class="card reveal" tabindex="0"
+        data-pill-ar="موقع شخصي" data-pill-en="Personal Site"
+        data-title-ar="هذا الموقع" data-title-en="This Website"
+        data-detail-ar="موقع بورتفوليو من صفحة واحدة، صُمّم وبُني بمساعدة الذكاء الاصطناعي. ثيم داكن معدني مستوحى من تصميم فخم، مع خطوط ضوء انسيابية، حركات ظهور عند التمرير، تصميم متجاوب بالكامل، وتبديل بين العربية والإنجليزية. يعكس مهارتي في بناء واجهات الويب باستخدام أدوات الذكاء الاصطناعي."
+        data-detail-en="A single-page portfolio, designed and built with AI assistance. A dark metallic theme inspired by premium design, with flowing light lines, scroll-reveal animations, a fully responsive layout, and Arabic/English switching. It demonstrates my ability to build web interfaces using AI tools.">
+        <span class="pill" data-ar="موقع شخصي" data-en="Personal Site">موقع شخصي</span>
+        <h3 data-ar="هذا الموقع" data-en="This Website">هذا الموقع</h3>
+        <p data-ar="موقع بورتفوليو من صفحة واحدة، مصمّم ومبني بمساعدة الذكاء الاصطناعي بثيم داكن متجاوب." data-en="A single-page portfolio designed and built with AI in a responsive dark theme.">موقع بورتفوليو من صفحة واحدة، مصمّم ومبني بمساعدة الذكاء الاصطناعي بثيم داكن متجاوب.</p>
+        <div class="stack">HTML · CSS · JavaScript · AI</div>
+        <div class="more" data-ar="اضغط للتفاصيل ←" data-en="Click for details →">اضغط للتفاصيل ←</div>
+      </div>
+
+      <div class="card reveal" tabindex="0"
+        data-title-ar="نظام سِير ذاتية مخصّصة" data-title-en="Custom Résumé System"
+        data-detail-ar="توليد خمس سِير ذاتية PDF موجّهة لمجالات مختلفة (تجزئة، مطاعم، اتصالات وإلكترونيات، سيرة عامة، وسيرة تقنية) — بُنيت برمجيًا وبمساعدة الأتمتة والذكاء الاصطناعي، مع تنسيق عربي احترافي واتجاه صحيح. مشروع يجمع بين التصميم والأتمتة وحل مشكلة واقعية: تخصيص السيرة لكل نوع وظيفة لرفع فرص القبول."
+        data-detail-en="Generating five targeted PDF résumés for different fields (retail, restaurants, telecom & electronics, a general CV, and a technical CV) — built programmatically with automation and AI, featuring professional Arabic typography and correct RTL layout. It combines design, automation, and solving a real problem: tailoring the CV per job type to improve acceptance.">
+        <span class="pill" data-ar="تصميم برمجي" data-en="Programmatic Design">تصميم برمجي</span>
+        <h3 data-ar="نظام سِير ذاتية مخصّصة" data-en="Custom Résumé System">نظام سِير ذاتية مخصّصة</h3>
+        <p data-ar="توليد خمس سِير ذاتية PDF موجّهة لمجالات مختلفة برمجيًا وبمساعدة الأتمتة والذكاء الاصطناعي." data-en="Generating five targeted PDF résumés programmatically with automation and AI.">توليد خمس سِير ذاتية PDF موجّهة لمجالات مختلفة برمجيًا وبمساعدة الأتمتة والذكاء الاصطناعي.</p>
+        <div class="stack">Python · تصميم · أتمتة</div>
+        <div class="more" data-ar="اضغط للتفاصيل ←" data-en="Click for details →">اضغط للتفاصيل ←</div>
+      </div>
+
+      <div class="card soon reveal" tabindex="0"
+        data-title-ar="مشروع أتمتة قادم" data-title-en="Upcoming Automation Project"
+        data-detail-ar="أتعلّم حاليًا تطوير الويب المتكامل (Full-Stack) والأتمتة، وأخطّط لمشروع يربط بين واجهة ويب وأتمتة مهام حقيقية. سيُضاف هنا فور اكتماله — تابعوا الجديد."
+        data-detail-en="I'm currently learning Full-Stack web development and automation, and planning a project that connects a web interface to real task automation. It will be added here once complete — stay tuned.">
+        <span class="pill" data-ar="قيد التطوير" data-en="In Progress">قيد التطوير</span>
+        <h3 data-ar="مشروع أتمتة قادم" data-en="Upcoming Automation Project">مشروع أتمتة قادم</h3>
+        <p data-ar="أتعلّم حاليًا تطوير الويب المتكامل والأتمتة — مشروع جديد قريبًا هنا." data-en="Currently learning Full-Stack & automation — a new project coming here soon.">أتعلّم حاليًا تطوير الويب المتكامل والأتمتة — مشروع جديد قريبًا هنا.</p>
+        <div class="stack">Coming soon</div>
+        <div class="more" data-ar="اضغط للتفاصيل ←" data-en="Click for details →">اضغط للتفاصيل ←</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="wrap reveal">
+    <div class="tag">04 — CONTACT</div>
+    <h2 class="head" data-ar="تواصل معي" data-en="Get in touch">تواصل معي</h2>
+    <p class="silver" data-ar="جاهز للفرص التقنية — حضوريًا أو عن بُعد." data-en="Available for tech opportunities — on-site or remote.">جاهز للفرص التقنية — حضوريًا أو عن بُعد.</p>
+    <div class="grid">
+      <a class="chip" href="mailto:yousefalasmri2006@gmail.com">✉ <b>yousefalasmri2006@gmail.com</b></a>
+      <a class="chip" href="tel:+966562633577">☎ <b>0562633577</b></a>
+      <a class="chip" href="https://www.linkedin.com/in/yousef-alasmri" target="_blank">in <b>LinkedIn</b></a>
+      <a class="chip" href="cv.pdf" target="_blank">▤ <b data-ar="السيرة الذاتية" data-en="Résumé (CV)">السيرة الذاتية</b></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer data-ar="© 2026 يوسف الأسمري — صُمّم وبُني بمساعدة الذكاء الاصطناعي" data-en="© 2026 Yousef Alasmri — Designed & built with AI">© 2026 يوسف الأسمري — صُمّم وبُني بمساعدة الذكاء الاصطناعي</footer>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="bd" onclick="closeModal()"></div>
+  <div class="box">
+    <span class="x" onclick="closeModal()">✕</span>
+    <span class="pill" id="m-pill"></span>
+    <h3 id="m-title"></h3>
+    <p id="m-detail"></p>
+    <div class="stack" id="m-stack"></div>
+  </div>
+</div>
+
+<script>
+let LANG='ar';
+function applyLang(){
+  document.documentElement.lang=LANG;
+  document.documentElement.dir = LANG==='ar'?'rtl':'ltr';
+  document.body.classList.toggle('en', LANG==='en');
+  document.querySelectorAll('[data-ar]').forEach(el=>{
+    const v=el.dataset[LANG]; if(v!==undefined) el.textContent=v;
+  });
+  document.getElementById('lang').textContent = LANG==='ar'?'English':'عربي';
+}
+function toggleLang(){ LANG = LANG==='ar'?'en':'ar'; applyLang(); }
+
+/* nav shrink */
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
+
+/* reveal on scroll */
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.14});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%6*60)+'ms';io.observe(el)});
+
+/* hero parallax (subtle) */
+const hero=document.querySelector('.hero');
+hero.addEventListener('mousemove',e=>{
+  const x=(e.clientX/innerWidth-.5), y=(e.clientY/innerHeight-.5);
+  document.querySelectorAll('.beam').forEach((b,i)=>{
+    const f=(i<2?14:26);
+    b.style.marginLeft=(x*f)+'px'; b.style.marginTop=(y*f)+'px';
+  });
+});
+
+/* project modal */
+const modal=document.getElementById('modal');
+document.querySelectorAll('.card').forEach(c=>{
+  const open=()=>{
+    document.getElementById('m-pill').textContent = c.dataset['pill'+(LANG==='ar'?'Ar':'En')] || (c.querySelector('.pill')?.textContent||'');
+    document.getElementById('m-title').textContent = c.dataset[LANG==='ar'?'titleAr':'titleEn'];
+    document.getElementById('m-detail').textContent = c.dataset[LANG==='ar'?'detailAr':'detailEn'];
+    document.getElementById('m-stack').textContent = c.querySelector('.stack').textContent;
+    modal.classList.add('open');
+  };
+  c.addEventListener('click',open);
+  c.addEventListener('keydown',e=>{if(e.key==='Enter')open()});
+});
+function closeModal(){modal.classList.remove('open')}
+addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+applyLang();
+</script>
+</body>
+</html>
